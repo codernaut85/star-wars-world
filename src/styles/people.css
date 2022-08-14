@@ -1,0 +1,23 @@
+.people-list {
+  display: flex;
+  flex-wrap: wrap;
+  list-style-type: none;
+  margin: 0 -20px;
+  padding: 0;
+}
+
+.people-list__person {
+  box-sizing: border-box;
+  padding: 20px;
+  width: 33.333333%
+}
+
+.people-list__person__content {
+  border: 1px solid black;
+  padding: 20px;
+}
+
+.film-list {
+  list-style-type: none;
+  padding: 0;
+}

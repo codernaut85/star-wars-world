@@ -1,0 +1,9 @@
+.pagination {
+  list-style-type: none;
+  padding: 0;
+}
+
+.pagination__item {
+    display: inline-block;
+    padding: 10px;
+}
