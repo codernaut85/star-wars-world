@@ -12,6 +12,22 @@
   width: 33.333333%
 }
 
+@media only screen and (max-width: 900px) {
+  .people-list__person {
+    box-sizing: border-box;
+    padding: 20px;
+    width: 50%
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .people-list__person {
+    box-sizing: border-box;
+    padding: 20px;
+    width: 100%
+  }
+}
+
 .people-list__person__content {
   border: 1px solid black;
   padding: 20px;

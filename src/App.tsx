@@ -14,7 +14,6 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/people/" element={<Home />} />
         <Route path="/people/:id" element={<Person />} />
       </Routes>
     </BrowserRouter>

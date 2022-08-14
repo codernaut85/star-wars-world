@@ -5,5 +5,19 @@
 
 .pagination__item {
     display: inline-block;
-    padding: 10px;
+    text-decoration: none;
+}
+
+.pagination__item a {
+  padding: 10px;
+  text-decoration: none;
+}
+
+.pagination__item a:hover,
+.pagination__item a:focus {
+  text-decoration: underline;
+}
+
+.pagination__item.current a {
+  text-decoration: underline;
 }

@@ -1,21 +1,24 @@
 import { useEffect, useState } from 'react';
 // @ts-ignore
 import { prop, sortBy } from 'ramda';
-import PlanetsService from '../../services/planets';
 import { useParams } from "react-router-dom";
 import utils from '../../utils';
+import Loader from '../loader';
 import FilmsService from '../../services/films';
 import PeopleService from '../../services/people';
+import PlanetsService from '../../services/planets';
 import FilmInterface from '../../interfaces/film';
 import PersonInterface from '../../interfaces/person';
 import AppHeader from '../appHeader';
+import '../../styles/buttons.css';
+import '../../styles/person.css';
 
 
 function renderLoadingOrErrorView(isLoading: boolean) {
   return <div>
     <AppHeader />
     <div className="main-content">
-      <p>{isLoading ? 'Loading...' : 'No data found for this person'}</p>
+      {isLoading ? <Loader /> : <p>No data found for this person</p>}
     </div>
   </div>;
 }
@@ -24,12 +27,53 @@ function Person() {
   const { id = '1' } = useParams();
   const personId = parseInt(id);
 
-  const [personData, setPersonData] = useState(null);
+  const [personData, setPersonData] = useState({
+    eye_color: '',
+    gender: '',
+    hair_color: '',
+    name: '',
+  });
   const [homeworldName, setHomeworldName] = useState(null);
   const [films, setFilms] = useState<FilmInterface[]>([]);
   const [isPersonDataLoading, setIsPersonDataLoading] = useState(true);
   const [isFilmDataLoading, setIsFilmDataLoading] = useState(true);
   const [isPlanetDataLoading, setIsPlanetDataLoading] = useState(true);
+  const [isEditingGender, setIsEditingGender] = useState(false);
+  const [editedGender, setEditedGender] = useState('');
+
+  function renderEditGender() {
+    const handleChange = (e: React.FormEvent<HTMLInputElement>) => {
+      setEditedGender(e.currentTarget.value);
+    }
+
+    /*
+      We are only saving locally as we cannot
+      actually write the change to the Star Wars API database.
+      
+      This is just for 'demo' purposes
+    */
+    const saveChanges = () => {
+      setPersonData(Object.assign(personData, {
+        gender: editedGender,
+      }));
+      setEditedGender('');
+      setIsEditingGender(false);
+    }
+
+    const cancelChanges = () => {
+      setEditedGender('');
+      setIsEditingGender(false);
+    }
+
+    return (
+      <div className="edit-block">
+        <p>Edit gender</p>
+        <input type="text" value={editedGender} onChange={handleChange} />
+        <button className="button" onClick={saveChanges} disabled={!editedGender}>Save</button>
+        <button className="button danger" onClick={cancelChanges}>Cancel</button>
+      </div>
+    );
+  }
 
   useEffect(() => {
     const fetchPlanet = async (personData: PersonInterface) => {
@@ -50,11 +94,8 @@ function Person() {
         films.map(async (film) => {
           const filmId = utils.getIdFromUrl(film.toString());
 
-          console.log('filmId', filmId);
-
           if (filmId) {
             const response = await FilmsService.getFilm(parseInt(filmId));
-            console.log('response', response);
             filmData.push(response);
           }
         })
@@ -66,7 +107,6 @@ function Person() {
 
     const fetchPersonData = async () => {
       const response = await PeopleService.getPerson(personId);
-      console.log('person data', response);
       setPersonData(response);
       setIsPersonDataLoading(false);
       fetchPlanet(response);
@@ -93,18 +133,23 @@ function Person() {
     <AppHeader />
     <article className="main-content">
       <h1>{name}</h1>
-      <p>Gender: {gender}</p>
+      <div>
+        {isEditingGender ? renderEditGender() : <p>Gender: {gender}</p>}
+        {!isEditingGender && <button className="button" onClick={() => setIsEditingGender(true)}>Edit</button>}
+      </div>
       <p>Eye: {eye_color}</p>
       <p>Hair colour: {hair_color}</p>
       <p>Homeworld: {homeworldName}</p>
-      <h2>Appearances</h2>
-      {films.length > 0 && (<ul className="film-list">
-        {films.map((film, idx) => {
-          return (
-            <li key={idx}>{film.title}</li>
-          );
-        })}
-      </ul>)}
+      {films.length > 0 && <div>
+        <h2>Appearances</h2>
+        <ul className="film-list">
+          {films.map((film, idx) => {
+            return (
+              <li key={idx}>{film.title}</li>
+            );
+          })}
+        </ul>
+      </div>}
     </article>
   </div>
 }

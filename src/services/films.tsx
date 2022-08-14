@@ -1,7 +1,8 @@
+import { baseApiURL } from '../constants';
 
 const PlanetService = {
   async getFilm(filmId: number) {
-    const response = await fetch(`https://swapi.dev/api/films/${filmId}/`);
+    const response = await fetch(`${baseApiURL}/films/${filmId}/`);
     return response.json();
   }
 }

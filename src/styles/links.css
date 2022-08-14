@@ -1,0 +1,13 @@
+.header-home-link {
+  text-decoration: none;
+}
+
+.people-list__person a {
+  color: inherit;
+  display: block;
+  text-decoration: none;
+}
+
+.people-list__person a:hover {
+  background-color: #eee;
+}

@@ -4,6 +4,5 @@ export default interface Person {
   name: string,
   gender: string,
   homeworld: string,
-  url: string,
-  view: string,
+  url: string
 }

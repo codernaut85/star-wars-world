@@ -1,13 +1,13 @@
+import { baseApiURL } from '../constants';
 
 const PeopleService = {
   async getAllPeople(page = 1) {
-    const response = await fetch(`https://swapi.dev/api/people/?page=${page}`);
+    const response = await fetch(`${baseApiURL}/people/?page=${page}`);
     return response.json();
   },
 
   async getPerson(id: number) {
-    console.log('check id', id);
-    const response = await fetch(`https://swapi.dev/api/people/${id}/`);
+    const response = await fetch(`${baseApiURL}/people/${id}/`);
     return response.json();
   }
 }
