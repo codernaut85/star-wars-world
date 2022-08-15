@@ -12,9 +12,12 @@ const mockFilm = {};
 
 const mockPerson = { "name": "Cliegg Lars", "height": "183", "mass": "unknown", "hair_color": "brown", "skin_color": "fair", "eye_color": "blue", "birth_year": "82BBY", "gender": "male", "homeworld": "https://swapi.dev/api/planets/1/", "films": ["https://swapi.dev/api/films/5/"], "species": [], "vehicles": [], "starships": [], "created": "2014-12-20T15:59:03.958000Z", "edited": "2014-12-20T21:17:50.451000Z", "url": "https://swapi.dev/api/people/62/" };
 
+const mockPersonNoFilms = { "name": "Cliegg Lars", "height": "183", "mass": "unknown", "hair_color": "brown", "skin_color": "fair", "eye_color": "blue", "birth_year": "82BBY", "gender": "male", "homeworld": "https://swapi.dev/api/planets/1/", "films": [], "species": [], "vehicles": [], "starships": [], "created": "2014-12-20T15:59:03.958000Z", "edited": "2014-12-20T21:17:50.451000Z", "url": "https://swapi.dev/api/people/62/" };
+
 const mockPlanet = {};
 
 afterEach(cleanup);
+
 
 test('renders person name', async () => {
   const mockedFilmService = jest.spyOn(FilmsService, 'getFilm');
@@ -38,6 +41,7 @@ test('renders person name', async () => {
   });
 });
 
+
 test('renders person gender', async () => {
   const mockedFilmService = jest.spyOn(FilmsService, 'getFilm');
   mockedFilmService.mockImplementation(() => Promise.resolve(mockFilm));
@@ -59,6 +63,7 @@ test('renders person gender', async () => {
     expect(titleElement).toBeInTheDocument();
   });
 });
+
 
 test('renders person hair colour', async () => {
   const mockedFilmService = jest.spyOn(FilmsService, 'getFilm');
@@ -100,5 +105,8 @@ test('renders Appearance when there are film results', async () => {
 
   await waitFor(() => {
     const titleElement = screen.getByText(/Appearances/i);
-    expect(titleElement).toBeInTheDocument();  });
+    expect(titleElement).toBeInTheDocument();
+  });
 });
+
+

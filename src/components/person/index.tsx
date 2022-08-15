@@ -141,7 +141,7 @@ function Person() {
       <p>Hair colour: {hair_color}</p>
       <p>Homeworld: {homeworldName}</p>
       {films.length > 0 && <div>
-        <h2>Appearances</h2>
+        <h2 data-testid="appearances">Appearances</h2>
         <ul className="film-list">
           {films.map((film, idx) => {
             return (
