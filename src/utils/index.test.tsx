@@ -24,13 +24,13 @@ test('getIdFromUrl correctly returns the ID from a URL when id is two digits', (
   expect(id).toEqual('14');
 });
 
-test('formateDateAsYear correctly returns a date string as a standard full year', () => {
+test('formateDateAsYear correctly returns a post 2000 date string as a standard full year', () => {
   const testString = '2005-05-19';
   const formatted = utils.formateDateAsYear(testString);
   expect(formatted).toEqual(2005);
 });
 
-test('formateDateAsYear correctly returns a date string as a standard full year', () => {
+test('formateDateAsYear correctly returns a pre 2000 date string as a standard full year', () => {
   const testString = '1976-05-19';
   const formatted = utils.formateDateAsYear(testString);
   expect(formatted).toEqual(1976);
