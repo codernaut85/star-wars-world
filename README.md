@@ -6,6 +6,8 @@ A simple Star Wars character information portal
 
 This app requires Node >=16 to run
 
+Run `npm install` to install dependencies
+
 ## Available Scripts
 
 In the project directory, you can run:
@@ -24,7 +26,7 @@ Launches the test runner in the interactive watch mode.
 
 ### `npm run build`
 
-Builds the app for production to the `build` folder.\
+Builds the app for production to the `build` folder.
 
 
 
