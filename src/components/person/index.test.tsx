@@ -1,5 +1,4 @@
-import React from 'react';
-import { cleanup, render, screen, waitFor } from '@testing-library/react';
+import { act, cleanup, render, screen, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect'
 import { MemoryRouter as Router } from 'react-router-dom';
 
@@ -107,6 +106,29 @@ test('renders Appearance when there are film results', async () => {
     const titleElement = screen.getByText(/Appearances/i);
     expect(titleElement).toBeInTheDocument();
   });
+});
+
+
+test('does not render Appearance when there are no film results', async () => {
+  const mockedFilmService = jest.spyOn(FilmsService, 'getFilm');
+  mockedFilmService.mockImplementation(() => Promise.resolve(mockFilm));
+
+  const mockedPeopleService = jest.spyOn(PeopleService, 'getPerson');
+  mockedPeopleService.mockImplementation(() => Promise.resolve(mockPerson));
+
+  const mockedPlanetsService = jest.spyOn(PlanetsService, 'getPlanet');
+  mockedPlanetsService.mockImplementation(() => Promise.resolve(mockPlanet));
+
+  render(
+    <Router>
+      <Person />
+    </Router>
+  );
+
+  await act(async () => { 
+    const myComponent = screen.queryByTestId('appearances');
+    expect(myComponent).not.toBeInTheDocument();
+  })
 });
 
 
