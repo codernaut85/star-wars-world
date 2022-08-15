@@ -137,7 +137,7 @@ function Person() {
         {isEditingGender ? renderEditGender() : <p>Gender: {gender}</p>}
         {!isEditingGender && <button className="button" onClick={() => setIsEditingGender(true)}>Edit</button>}
       </div>
-      <p>Eye: {eye_color}</p>
+      <p>Eye colour: {eye_color}</p>
       <p>Hair colour: {hair_color}</p>
       <p>Homeworld: {homeworldName}</p>
       {films.length > 0 && <div>
@@ -145,7 +145,9 @@ function Person() {
         <ul className="film-list">
           {films.map((film, idx) => {
             return (
-              <li key={idx}>{film.title}</li>
+              <li key={idx}>
+                <p>{film.title} - {utils.formateDateAsYear(film.release_date)}</p>
+              </li>
             );
           })}
         </ul>

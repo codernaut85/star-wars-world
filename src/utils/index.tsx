@@ -13,6 +13,13 @@ const utils = {
     parts.length = parts.length - 1;
     const id = parts.pop();
     return id;
+  },
+
+  formateDateAsYear: (year: string) => {
+    if (!year) {
+      return null;
+    }
+    return new Date(year).getFullYear();
   }
 }
 
