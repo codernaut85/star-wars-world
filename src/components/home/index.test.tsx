@@ -17,29 +17,32 @@ test('renders screen header', () => {
 });
 
 
-
 test('renders pagination when there are more than 10 results from getAllPeople', async () => {
-    const mockPeople: object[] = [];
+  const mockPeople: object[] = [];
 
-    for (let index = 0; index < 30; index++) {
-      mockPeople.push(mockPerson);
-    }
+  for (let index = 0; index < 30; index++) {
+    mockPeople.push(mockPerson);
+  }
 
-    PeopleService.getAllPeople = async () => ({
-      results: mockPeople,
-      count: 30,
-    });
+  const mockedReturnValue = {
+    results: mockPeople,
+    count: 30,
+  };
+
+  const mock = jest.spyOn(PeopleService, 'getAllPeople');
+  mock.mockImplementation(() => Promise.resolve(mockedReturnValue))
 
   render(
-      <Router>
-        <Home />
-      </Router>
-    );
+    <Router>
+      <Home />
+    </Router>
+  );
   
   await waitFor(() => {
     expect(screen.getByTestId("pagination")).toBeInTheDocument();;
   });
 });
+
 
 test('renders title when there are more than 10 results from getAllPeople', async () => {
   const mockPeople: object[] = [];
@@ -48,10 +51,13 @@ test('renders title when there are more than 10 results from getAllPeople', asyn
     mockPeople.push(mockPerson);
   }
 
-  PeopleService.getAllPeople = async () => ({
+  const mockedReturnValue = {
     results: mockPeople,
     count: 30,
-  });
+  };
+
+  const mock = jest.spyOn(PeopleService, 'getAllPeople');
+  mock.mockImplementation(() => Promise.resolve(mockedReturnValue))
 
   render(
     <Router>
@@ -73,10 +79,13 @@ test('renders people-list when there are results from getAllPeople', async () =>
     mockPeople.push(mockPerson);
   }
 
-  PeopleService.getAllPeople = async () => ({
+  const mockedReturnValue = {
     results: mockPeople,
     count: 30,
-  });
+  };
+
+  const mock = jest.spyOn(PeopleService, 'getAllPeople');
+  mock.mockImplementation(() => Promise.resolve(mockedReturnValue))
 
   render(
     <Router>

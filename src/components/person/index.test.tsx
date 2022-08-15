@@ -17,10 +17,14 @@ const mockPlanet = {};
 afterEach(cleanup);
 
 test('renders person name', async () => {
-  FilmsService.getFilm = async () => (mockFilm);
-  PeopleService.getPerson = async () => (mockPerson);
-  PlanetsService.getPlanet = async () => (mockPlanet);
-  
+  const mockedFilmService = jest.spyOn(FilmsService, 'getFilm');
+  mockedFilmService.mockImplementation(() => Promise.resolve(mockFilm));
+
+  const mockedPeopleService = jest.spyOn(PeopleService, 'getPerson');
+  mockedPeopleService.mockImplementation(() => Promise.resolve(mockPerson));
+
+  const mockedPlanetsService = jest.spyOn(PlanetsService, 'getPlanet');
+  mockedPlanetsService.mockImplementation(() => Promise.resolve(mockPlanet));
 
   render(
     <Router>
@@ -35,9 +39,14 @@ test('renders person name', async () => {
 });
 
 test('renders person gender', async () => {
-  FilmsService.getFilm = async () => (mockFilm);
-  PeopleService.getPerson = async () => (mockPerson);
-  PlanetsService.getPlanet = async () => (mockPlanet);
+  const mockedFilmService = jest.spyOn(FilmsService, 'getFilm');
+  mockedFilmService.mockImplementation(() => Promise.resolve(mockFilm));
+
+  const mockedPeopleService = jest.spyOn(PeopleService, 'getPerson');
+  mockedPeopleService.mockImplementation(() => Promise.resolve(mockPerson));
+
+  const mockedPlanetsService = jest.spyOn(PlanetsService, 'getPlanet');
+  mockedPlanetsService.mockImplementation(() => Promise.resolve(mockPlanet));
 
   render(
     <Router>
@@ -52,9 +61,14 @@ test('renders person gender', async () => {
 });
 
 test('renders person hair colour', async () => {
-  FilmsService.getFilm = async () => (mockFilm);
-  PeopleService.getPerson = async () => (mockPerson);
-  PlanetsService.getPlanet = async () => (mockPlanet);
+  const mockedFilmService = jest.spyOn(FilmsService, 'getFilm');
+  mockedFilmService.mockImplementation(() => Promise.resolve(mockFilm));
+
+  const mockedPeopleService = jest.spyOn(PeopleService, 'getPerson');
+  mockedPeopleService.mockImplementation(() => Promise.resolve(mockPerson));
+
+  const mockedPlanetsService = jest.spyOn(PlanetsService, 'getPlanet');
+  mockedPlanetsService.mockImplementation(() => Promise.resolve(mockPlanet));
 
   render(
     <Router>
@@ -69,20 +83,20 @@ test('renders person hair colour', async () => {
 });
 
 test('renders Appearance when there are film results', async () => {
-  FilmsService.getFilm = async () => (mockFilm);
-  PeopleService.getPerson = async () => (mockPerson);
-  PlanetsService.getPlanet = async () => (mockPlanet);
+  const mockedFilmService = jest.spyOn(FilmsService, 'getFilm');
+  mockedFilmService.mockImplementation(() => Promise.resolve(mockFilm));
+
+  const mockedPeopleService = jest.spyOn(PeopleService, 'getPerson');
+  mockedPeopleService.mockImplementation(() => Promise.resolve(mockPerson));
+
+  const mockedPlanetsService = jest.spyOn(PlanetsService, 'getPlanet');
+  mockedPlanetsService.mockImplementation(() => Promise.resolve(mockPlanet));
 
   render(
     <Router>
       <Person />
     </Router>
   );
-
-  await waitFor(() => {
-    const titleElement = screen.getByText(/brown/i);
-    expect(titleElement).toBeInTheDocument();
-  });
 
   await waitFor(() => {
     const titleElement = screen.getByText(/Appearances/i);
