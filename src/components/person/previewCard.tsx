@@ -17,14 +17,18 @@ function Person({ person }: PersonProps) {
 
   const { gender, homeworld, name, url } = person;
 
-  const [homeworldName, setHomeworldName] = useState(null);
+  const [homeworldName, setHomeworldName] = useState('');
 
   useEffect(() => {
     const fetchPlanet = async () => {
       const planetId = utils.getIdFromUrl(homeworld);
       if (planetId) {
         const response = await PlanetService.getPlanet(parseInt(planetId));
-        setHomeworldName(response.name);
+        if (response) {
+          setHomeworldName(response.name);
+        } else {
+          setHomeworldName('No homeworld data found');
+        }
       }
     }
 
@@ -39,7 +43,7 @@ function Person({ person }: PersonProps) {
         <article className="people-list__person__content">
           <h3>{name}</h3>
           {gender && <p>Gender: {gender}</p>}
-          {homeworldName && <p>Homeworld: {homeworldName}</p>}
+          <p>Homeworld: {homeworldName || 'Retrieving homeworld data...'}</p>
         </article>
       </Link>
     </li>
